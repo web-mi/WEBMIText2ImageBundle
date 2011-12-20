@@ -2,32 +2,26 @@
 
 namespace WEBMI\Bundle\Text2ImageBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 
-class WEBMIText2ImageExtension extends Extension
-{
-    /**
-     * Handles the webmi_text2image configuration.
-     *
-     * @param array $configs The configurations being loaded
-     * @param ContainerBuilder $container
-     */
-    public function load(array $configs , ContainerBuilder $container)
-    {
-        $processor = new Processor();
-        $configuration = new Configuration();
+class WEBMIText2ImageExtension extends Extension {
 
-        $config = $processor->process($configuration->getConfigTree(), $configs);
-
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('parser.xml');
-        $loader->load('helper.xml');
-        $loader->load('twig.xml');
-
-        $container->setAlias('text2image.parser', $config['parser']['service']);
+    public function load(array $config, ContainerBuilder $container) {
+        $definition = new Definition('WEBMI\Bundle\Text2ImageBundle\Twig\Extension\Text2ImageTwigExtension');
+        // this is the most important part. Later in the startup process TwigBundle
+        // searches through the container and registres all services taged as twig.extension.
+        $definition->addTag('twig.extension');
+        $container->setDefinition('my_twig_extension', $definition);
     }
+
+    /**
+     * Was necessary in previous Symfony2 PR releases.
+     * Symfony2 calls `load` method automatically now.
+     *
+     * public function getAlias() {
+     *     return 'hello'; // that's how we'll call this extension in configuration files
+     * }
+     */
 }

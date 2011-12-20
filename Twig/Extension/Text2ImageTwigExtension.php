@@ -6,27 +6,19 @@ use WEBMI\Bundle\Text2ImageBundle\Helper\Text2ImageHelper;
 
 class Text2ImageTwigExtension extends \Twig_Extension
 {
-    protected $helper;
-
-    function __construct(Text2ImageHelper $helper)
-    {
-        $this->helper = $helper;
-    }
-
-    public function getFilters()
-    {
+     public function getFilters() {
         return array(
-            'text2image' => new \Twig_Filter_Method($this, 'text2image', array('is_safe' => array('default'))),
+            'var_dump'   => new \Twig_Filter_Function('var_dump'),
+            'highlight'  => new \Twig_Filter_Method($this, 'highlight'),
         );
     }
 
-    public function text2image($txt)
-    {
-        return $this->helper->transform($txt);
+    public function highlight($sentence, $expr) {
+        return preg_replace('/(' . $expr . ')/', '<span style="color:red">\1</span>', $sentence);
     }
 
     public function getName()
     {
-        return 'text2image';
+        return 'my_twig_extension';
     }
 }
