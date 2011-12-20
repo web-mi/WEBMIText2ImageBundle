@@ -16,7 +16,7 @@ class Text2ImageTwigExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            'text2image' => new \Twig_Filter_Method($this, 'text2image', array('is_safe' => array('html'))),
+            'text2image' => new \Twig_Filter_Method($this, 'text2image', array('is_safe' => array('default'))),
         );
     }
 
