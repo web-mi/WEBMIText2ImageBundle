@@ -10,7 +10,7 @@ class Text2ImageTwigExtension extends \Twig_Extension
         return array(
             'var_dump'   => new \Twig_Filter_Function('var_dump'),
             'highlight'  => new \Twig_Filter_Method($this, 'highlight'),
-            'text2image'  => new \Twig_Filter_Method($this, 'highlight'),
+            'text2image'  => new \Twig_Filter_Method($this, 'text2image'),
         );
     }
 
