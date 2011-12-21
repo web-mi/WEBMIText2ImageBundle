@@ -51,7 +51,7 @@ class Text2ImageTwigExtension extends \Twig_Extension
         // @param $shadow imagecolorallocate(RGB) Farbe von der der Schattenverlauf anfängt
         // @param $hintergrund imagecolorallocate(RGB) Farbe in die der Schatten ausläuft
         // @param int 0-360° Richtung des Schattenfalls
-        imagettfshadow($grafik, 20, 0, 10, 20, $font, $text, 5, $shadow, $hintergrund, 215);
+        $this->imagettfshadow($grafik, 20, 0, 10, 20, $font, $text, 5, $shadow, $hintergrund, 215);
 
         //Setzt den einzufügenden Text in die Grafik
         imagettftext($grafik, 20, 0, 10, 20, $schriftfarbe, $font, $text);
