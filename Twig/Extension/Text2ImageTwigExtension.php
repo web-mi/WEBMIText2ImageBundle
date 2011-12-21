@@ -3,6 +3,7 @@
 namespace WEBMI\Bundle\Text2ImageBundle\Twig\Extension;
 
 use WEBMI\Bundle\Text2ImageBundle\Helper\Text2ImageHelper;
+use Symfony\Component\Config\FileLocator;
 
 class Text2ImageTwigExtension extends \Twig_Extension
 {
@@ -41,16 +42,10 @@ class Text2ImageTwigExtension extends \Twig_Extension
         ImageFilledRectangle($grafik, 0, 0, 180, 30, $hintergrund);
 
         //Zu verwendende Font
-        $font = '/bundles/webmitext2image/fonts/DroidSans-Bold.ttf';
-
+        $font_locator = new FileLocator(__DIR__.'/../../Resources/public/fonts/');
+        $font = $font_locator->locate('DroidSans-Bold.ttf');
+        
         //Fügt einen Text Schatten in die Grafik
-        //erste fünf Parameter wie bei imagettftext
-        // @param string $font im format .ttf
-        // @param string $text
-        // @param int Auslauf wie weit der Schatten ausläuft um die Schrift
-        // @param $shadow imagecolorallocate(RGB) Farbe von der der Schattenverlauf anfängt
-        // @param $hintergrund imagecolorallocate(RGB) Farbe in die der Schatten ausläuft
-        // @param int 0-360° Richtung des Schattenfalls
         $this->imagettfshadow($grafik, 20, 0, 10, 20, $font, $text, 5, $shadow, $hintergrund, 215);
 
         //Setzt den einzufügenden Text in die Grafik
