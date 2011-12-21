@@ -41,7 +41,7 @@ class Text2ImageTwigExtension extends \Twig_Extension
         ImageFilledRectangle($grafik, 0, 0, 180, 30, $hintergrund);
 
         //Zu verwendende Font
-        $font = 'DroidSans-Bold.ttf';
+        $font = '/bundles/webmitext2image/fonts/DroidSans-Bold.ttf';
 
         //Fügt einen Text Schatten in die Grafik
         //erste fünf Parameter wie bei imagettftext
