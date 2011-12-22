@@ -69,8 +69,7 @@ class Text2ImageTwigExtension extends \Twig_Extension
         $grafik = imagerotate($grafik, 90, 0);
 
         //Setzt den Header auf PNG und gibt das PNG aus
-        $header['expires']='Expires: Mon, 20 Mar 2002 02:38:00 GMT';
-        $header['content-type']='Content-type: image/png';
+        $header='Content-type: image/png';
         //Setzt den Header auf PNG und gibt das PNG aus
         //Header("Expires: Mon, 20 Mar 2002 02:38:00 GMT");
         //Header("Content-type: image/png");
