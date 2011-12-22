@@ -43,7 +43,11 @@ class Text2ImageTwigExtension extends \Twig_Extension
 
         //Zu verwendende Font
         $font_locator = new FileLocator(__DIR__.'/../../Resources/public/fonts/');
-        $font = $font_locator->locate('DroidSans-Bold.ttf');
+        try {
+                $font = $font_locator->locate('DroidSans-Bold.ttf');
+        } catch (\InvalidArgumentException $e) {
+                $font = $font_locator->locate('DroidSans-Bold.ttf');
+        }
         
         //Fügt einen Text Schatten in die Grafik
         $this->imagettfshadow($grafik, 20, 0, 10, 20, $font, $text, 5, $shadow, $hintergrund, 215);
@@ -58,10 +62,14 @@ class Text2ImageTwigExtension extends \Twig_Extension
         $grafik = imagerotate($grafik, 90, 0);
 
         //Setzt den Header auf PNG und gibt das PNG aus
-        Header("Expires: Mon, 20 Mar 2002 02:38:00 GMT");
-        Header("Content-type: image/png");
-        ImagePNG($grafik);
+        $header['expires']='Expires: Mon, 20 Mar 2002 02:38:00 GMT';
+        $header['content-type']='Content-type: image/png';
+        //Setzt den Header auf PNG und gibt das PNG aus
+        //Header("Expires: Mon, 20 Mar 2002 02:38:00 GMT");
+        //Header("Content-type: image/png");
+        $binaryPic = ImagePNG($grafik);
         ImageDestroy($grafik);
+        return $this->render('WEBMIText2ImageBundle:Default:imageReturnTemplate.html.twig', array('header' => $header, 'binaryPic' => $binaryPic));
         
     }
 
