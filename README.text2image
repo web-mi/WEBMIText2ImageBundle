@@ -27,11 +27,5 @@ Register namespace in ``app/autoload.php``
 
 ## USAGE
 
-    // Use the service
-    $html = $this->container->get('markdown.parser')->transform($text);
-
-    // Use the helper
-    echo $view['markdown']->transform($text);
-
     //Use the Twig Code
     {{ 'Convert this Text to Image' | text2image() }}
