@@ -4,12 +4,15 @@ namespace WEBMI\Bundle\Text2ImageBundle\Twig\Extension;
 
 use WEBMI\Bundle\Text2ImageBundle\Helper\Text2ImageHelper;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Templating\EngineInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Text2ImageTwigExtension extends \Twig_Extension
 {
-     public function __constructor() {
-        print_r(func_get_args());exit;
-    }
+     protected $container;
+     public function __construct(ContainerInterface $container) {
+         $this->container = $container;
+        }
     
      public function getFilters() {
         return array(
@@ -72,8 +75,12 @@ class Text2ImageTwigExtension extends \Twig_Extension
         //Header("Expires: Mon, 20 Mar 2002 02:38:00 GMT");
         //Header("Content-type: image/png");
         $binaryPic = ImagePNG($grafik);
+        //$binaryPic = $grafik;
         ImageDestroy($grafik);
-        $this->get('my_templating')->render('WEBMIText2ImageBundle:Default:imageReturnTemplate.html.twig', array('header' => $header, 'binaryPic' => $binaryPic));
+        //echo $this->container->get('templating')->render('WEBMIText2ImageBundle:Default:imageReturnTemplate.html.twig', array('header' => $header, 'binaryPic' => $binaryPic));
+        //exit;
+
+        return $this->container->get('templating')->render('WEBMIText2ImageBundle:Default:imageReturnTemplate.html.twig', array('header' => $header, 'binaryPic' => $binaryPic));
         //return $templating->render('WEBMIText2ImageBundle:Default:imageReturnTemplate.html.twig', array('header' => $header, 'binaryPic' => $binaryPic));
         
     }
