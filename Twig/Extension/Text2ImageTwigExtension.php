@@ -73,6 +73,7 @@ class Text2ImageTwigExtension extends \Twig_Extension
         //Header("Content-type: image/png");
         $binaryPic = ImagePNG($grafik);
         ImageDestroy($grafik);
+        $this->get('my_templating')->render('WEBMIText2ImageBundle:Default:imageReturnTemplate.html.twig', array('header' => $header, 'binaryPic' => $binaryPic));
         //return $templating->render('WEBMIText2ImageBundle:Default:imageReturnTemplate.html.twig', array('header' => $header, 'binaryPic' => $binaryPic));
         
     }
