@@ -7,6 +7,10 @@ use Symfony\Component\Config\FileLocator;
 
 class Text2ImageTwigExtension extends \Twig_Extension
 {
+     public function __constructor() {
+        print_r(func_get_args());exit;
+    }
+    
      public function getFilters() {
         return array(
             'var_dump'   => new \Twig_Filter_Function('var_dump'),
@@ -69,7 +73,7 @@ class Text2ImageTwigExtension extends \Twig_Extension
         //Header("Content-type: image/png");
         $binaryPic = ImagePNG($grafik);
         ImageDestroy($grafik);
-        return $this->render('WEBMIText2ImageBundle:Default:imageReturnTemplate.html.twig', array('header' => $header, 'binaryPic' => $binaryPic));
+        //return $templating->render('WEBMIText2ImageBundle:Default:imageReturnTemplate.html.twig', array('header' => $header, 'binaryPic' => $binaryPic));
         
     }
 

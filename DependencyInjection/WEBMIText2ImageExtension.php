@@ -13,7 +13,10 @@ class WEBMIText2ImageExtension extends Extension {
         // this is the most important part. Later in the startup process TwigBundle
         // searches through the container and registres all services taged as twig.extension.
         $definition->addTag('twig.extension');
-        $container->setDefinition('my_twig_extension', $definition);
+        
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.xml');
+        
     }
 
     /**
